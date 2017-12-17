@@ -1,4 +1,6 @@
 # Observable Collections
+[ ![Download](https://api.bintray.com/packages/krupalshah55/ObservableCollections/observablecollections/images/download.svg) ](https://bintray.com/krupalshah55/ObservableCollections/observablecollections/_latestVersion)
+
 A thin wrapper around Java Collections using **RxJava2** in which you can observe the insertions,removals and modifications.<br/>Inspired from observable collections in JavaFX and C#.<br/>
 
 ### Features
