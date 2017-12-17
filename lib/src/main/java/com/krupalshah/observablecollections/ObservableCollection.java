@@ -1,7 +1,13 @@
 package com.krupalshah.observablecollections;
 
+import com.krupalshah.observablecollections.change.Change;
+import com.krupalshah.observablecollections.change.Insertion;
+import com.krupalshah.observablecollections.change.Removal;
+
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 
 import io.reactivex.annotations.NonNull;
 import io.reactivex.subjects.Subject;
@@ -10,12 +16,12 @@ public class ObservableCollection<E> extends BaseObservable<Change> implements C
 
     private Collection<E> mCollection;
 
-    public ObservableCollection(@NonNull Collection<E> collection) {
+    protected ObservableCollection(@NonNull Collection<E> collection) {
         super();
         mCollection = collection;
     }
 
-    public ObservableCollection(@NonNull Collection<E> collection, @NonNull Subject<Change> subject) {
+    protected ObservableCollection(@NonNull Collection<E> collection, @NonNull Subject<Change> subject) {
         super(subject);
         mCollection = collection;
     }
@@ -23,6 +29,7 @@ public class ObservableCollection<E> extends BaseObservable<Change> implements C
     //region custom implementation
     @Override
     public boolean add(E element) {
+        Collection<E> original = Collections.unmodifiableCollection(mCollection);
         boolean changed;
         try {
             changed = mCollection.add(element);
@@ -31,29 +38,39 @@ public class ObservableCollection<E> extends BaseObservable<Change> implements C
             subject().onError(e);
         }
         if (changed) {
-            subject().onNext(new Change());
+            Collection<E> inserted = Collections.singleton(element);
+            Change<ObservableCollection<E>, Collection<E>> change = new Insertion<>(
+                    this, original, inserted
+            );
+            subject().onNext(change);
         }
         return changed;
     }
 
     @Override
     public boolean remove(Object object) {
-        boolean removed;
+        Collection<E> original = Collections.unmodifiableCollection(mCollection);
+        boolean changed;
         try {
-            removed = mCollection.remove(object);
+            changed = mCollection.remove(object);
         } catch (UnsupportedOperationException | ClassCastException | NullPointerException e) {
-            removed = false;
+            changed = false;
             subject().onError(e);
         }
-        if (removed) {
-            subject().onNext(new Change());
+        if (changed) {
+            Collection<Object> removed = Collections.singleton(object);
+            Change<ObservableCollection<E>, Collection<?>> change = new Removal<>(
+                    this, original, removed
+            );
+            subject().onNext(change);
         }
-        return removed;
+        return changed;
     }
 
 
     @Override
     public boolean addAll(Collection<? extends E> collection) {
+        Collection<E> original = Collections.unmodifiableCollection(mCollection);
         boolean changed;
         try {
             changed = mCollection.addAll(collection);
@@ -62,13 +79,18 @@ public class ObservableCollection<E> extends BaseObservable<Change> implements C
             subject().onError(e);
         }
         if (changed) {
-            subject().onNext(new Change());
+            Collection<E> inserted = Collections.unmodifiableCollection(collection);
+            Change<ObservableCollection<E>, Collection<E>> change = new Insertion<>(
+                    this, original, inserted
+            );
+            subject().onNext(change);
         }
         return changed;
     }
 
     @Override
     public boolean removeAll(Collection<?> collection) {
+        Collection<?> original = Collections.unmodifiableCollection(mCollection);
         boolean changed;
         try {
             changed = mCollection.removeAll(collection);
@@ -77,13 +99,18 @@ public class ObservableCollection<E> extends BaseObservable<Change> implements C
             subject().onError(e);
         }
         if (changed) {
-            subject().onNext(new Change());
+            Collection<?> removed = Collections.unmodifiableCollection(collection);
+            Change<ObservableCollection<E>, Collection<?>> change = new Removal<>(
+                    this, original, removed
+            );
+            subject().onNext(change);
         }
         return changed;
     }
 
     @Override
     public boolean retainAll(Collection<?> collection) {
+        Collection<?> original = Collections.unmodifiableCollection(mCollection);
         boolean changed;
         try {
             changed = mCollection.retainAll(collection);
@@ -92,16 +119,25 @@ public class ObservableCollection<E> extends BaseObservable<Change> implements C
             subject().onError(e);
         }
         if (changed) {
-            subject().onNext(new Change());
+            Collection<?> removedSet = new LinkedHashSet<>(original);
+            removedSet.removeAll(mCollection);
+            Change<ObservableCollection<E>, Collection<?>> change = new Removal<>(
+                    this, original, removedSet
+            );
+            subject().onNext(change);
         }
         return changed;
     }
 
     @Override
     public void clear() {
+        Collection<E> original = Collections.unmodifiableCollection(mCollection);
         try {
             mCollection.clear();
-            subject().onNext(new Change());
+            Change<ObservableCollection<E>, Collection<E>> change = new Removal<>(
+                    this, original, original
+            );
+            subject().onNext(change);
         } catch (UnsupportedOperationException e) {
             subject().onError(e);
         }
@@ -145,7 +181,7 @@ public class ObservableCollection<E> extends BaseObservable<Change> implements C
     }
     //endregion
 
-    public Collection<E> items(){
+    public Collection<E> items() {
         return mCollection;
     }
 

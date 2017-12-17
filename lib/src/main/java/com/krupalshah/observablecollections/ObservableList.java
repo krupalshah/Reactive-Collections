@@ -1,6 +1,12 @@
 package com.krupalshah.observablecollections;
 
+import com.krupalshah.observablecollections.change.Change;
+import com.krupalshah.observablecollections.change.Insertion;
+import com.krupalshah.observablecollections.change.Modification;
+import com.krupalshah.observablecollections.change.Removal;
+
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -11,19 +17,20 @@ import io.reactivex.subjects.Subject;
  * Created on 16-Dec-17.
  */
 
-public class ObservableList<E>  extends ObservableCollection<E> implements List<E> {
+public class ObservableList<E> extends ObservableCollection<E> implements List<E> {
 
-    public ObservableList(@NonNull List<E> collection) {
+    protected ObservableList(@NonNull List<E> collection) {
         super(collection);
     }
 
-    public ObservableList(@NonNull List<E> collection, @NonNull Subject<Change> subject) {
+    protected ObservableList(@NonNull List<E> collection, @NonNull Subject<Change> subject) {
         super(collection, subject);
     }
 
     //region custom implementation
     @Override
     public boolean addAll(int index, Collection<? extends E> collection) {
+        Collection<E> original = Collections.unmodifiableCollection(items());
         boolean changed;
         try {
             changed = items().addAll(collection);
@@ -32,16 +39,25 @@ public class ObservableList<E>  extends ObservableCollection<E> implements List<
             subject().onError(e);
         }
         if (changed) {
-            subject().onNext(new Change());
+            Collection<E> inserted = Collections.unmodifiableCollection(collection);
+            Change<ObservableList<E>, Collection<E>> change = new Insertion<>(
+                    this, original, inserted
+            );
+            subject().onNext(change);
         }
         return changed;
     }
 
     @Override
     public E set(int index, E element) {
+        Collection<E> original = Collections.unmodifiableList(items());
         try {
             E oldElement = items().set(index, element);
-            subject().onNext(new Change());
+            Collection<E> changedItems = Collections.singleton(element);
+            Change<ObservableList<E>, Collection<E>> change = new Modification<>(
+                    this, original, changedItems
+            );
+            subject().onNext(change);
             return oldElement;
         } catch (UnsupportedOperationException | IllegalArgumentException | IndexOutOfBoundsException | ClassCastException | NullPointerException e) {
             subject().onError(e);
@@ -51,6 +67,7 @@ public class ObservableList<E>  extends ObservableCollection<E> implements List<
 
     @Override
     public void add(int index, E element) {
+        Collection<E> original = Collections.unmodifiableCollection(items());
         boolean changed;
         try {
             changed = items().add(element);
@@ -59,15 +76,24 @@ public class ObservableList<E>  extends ObservableCollection<E> implements List<
             subject().onError(e);
         }
         if (changed) {
-            subject().onNext(new Change());
+            Collection<E> inserted = Collections.singleton(element);
+            Change<ObservableList<E>, Collection<E>> change = new Insertion<>(
+                    this, original, inserted
+            );
+            subject().onNext(change);
         }
     }
 
     @Override
     public E remove(int index) {
+        Collection<E> original = Collections.unmodifiableCollection(items());
         try {
             E oldElement = items().remove(index);
-            subject().onNext(new Change());
+            Collection<E> removed = Collections.singleton(oldElement);
+            Change<ObservableList<E>, Collection<E>> change = new Removal<>(
+                    this, original, removed
+            );
+            subject().onNext(change);
             return oldElement;
         } catch (UnsupportedOperationException | IndexOutOfBoundsException e) {
             subject().onError(e);
@@ -104,7 +130,7 @@ public class ObservableList<E>  extends ObservableCollection<E> implements List<
 
     @Override
     public List<E> subList(int fromIndex, int toIndex) {
-        return items().subList(fromIndex,toIndex);
+        return items().subList(fromIndex, toIndex);
     }
     //endregion
 

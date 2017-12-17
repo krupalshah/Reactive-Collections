@@ -1,6 +1,12 @@
 package com.krupalshah.observablecollections;
 
+import com.krupalshah.observablecollections.change.Change;
+import com.krupalshah.observablecollections.change.Insertion;
+import com.krupalshah.observablecollections.change.Modification;
+import com.krupalshah.observablecollections.change.Removal;
+
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
@@ -15,12 +21,12 @@ public class ObservableMap<K, V> extends BaseObservable<Change> implements Map<K
 
     private Map<K, V> mMap;
 
-    public ObservableMap(@NonNull Map<K, V> map) {
+    protected ObservableMap(@NonNull Map<K, V> map) {
         super();
         mMap = map;
     }
 
-    public ObservableMap(@NonNull Map<K, V> map, @NonNull Subject<Change> subject) {
+    protected ObservableMap(@NonNull Map<K, V> map, @NonNull Subject<Change> subject) {
         super(subject);
         mMap = map;
     }
@@ -28,9 +34,17 @@ public class ObservableMap<K, V> extends BaseObservable<Change> implements Map<K
     //region custom implementation
     @Override
     public V put(K key, V value) {
+        Map<K, V> original = Collections.unmodifiableMap(items());
         try {
             V oldValue = mMap.put(key, value);
-            subject().onNext(new Change());
+            Map<K, V> addedOrUpdated = Collections.singletonMap(key, value);
+            Change<ObservableMap<K, V>, Map<K, V>> change;
+            if (oldValue != null) {
+                change = new Modification<>(this, original, addedOrUpdated);
+            } else {
+                change = new Insertion<>(this, original, addedOrUpdated);
+            }
+            subject().onNext(change);
             return oldValue;
         } catch (UnsupportedOperationException | IllegalArgumentException | ClassCastException | NullPointerException e) {
             subject().onError(e);
@@ -40,9 +54,14 @@ public class ObservableMap<K, V> extends BaseObservable<Change> implements Map<K
 
     @Override
     public V remove(Object key) {
+        Map<K, V> original = Collections.unmodifiableMap(items());
         try {
             V oldValue = mMap.remove(key);
-            subject().onNext(new Change());
+            if (oldValue != null) {
+                Map<K, V> removed = Collections.singletonMap((K) key, oldValue);
+                Change<ObservableMap<K, V>, Map<K, V>> change = new Removal<>(this, original, removed);
+                subject().onNext(change);
+            }
             return oldValue;
         } catch (UnsupportedOperationException | ClassCastException | NullPointerException e) {
             subject().onError(e);
@@ -52,9 +71,12 @@ public class ObservableMap<K, V> extends BaseObservable<Change> implements Map<K
 
     @Override
     public void putAll(Map<? extends K, ? extends V> map) {
+        Map<K, V> original = Collections.unmodifiableMap(items());
         try {
             mMap.putAll(map);
-            subject().onNext(new Change());
+            Map<K, V> addedOrUpdated = Collections.unmodifiableMap(items());
+            Change<ObservableMap<K, V>, Map<K, V>> change = new Modification<>(this, original, addedOrUpdated);
+            subject().onNext(change);
         } catch (UnsupportedOperationException | IllegalArgumentException | ClassCastException | NullPointerException e) {
             subject().onError(e);
         }
@@ -62,7 +84,16 @@ public class ObservableMap<K, V> extends BaseObservable<Change> implements Map<K
 
     @Override
     public void clear() {
-
+        Map<K,V> original = Collections.unmodifiableMap(mMap);
+        try {
+            mMap.clear();
+            Change<ObservableMap<K,V>, Map<K,V>> change = new Removal<>(
+                    this, original, original
+            );
+            subject().onNext(change);
+        } catch (UnsupportedOperationException e) {
+            subject().onError(e);
+        }
     }
     //endregion
 

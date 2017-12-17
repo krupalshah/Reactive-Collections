@@ -1,5 +1,7 @@
 package com.krupalshah.observablecollections;
 
+import com.krupalshah.observablecollections.change.Change;
+
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
@@ -22,4 +24,6 @@ public abstract class BaseObservable<T extends Change> {
     public Subject<T> subject() {
         return mSubject;
     }
+
+    public abstract Object items();
 }

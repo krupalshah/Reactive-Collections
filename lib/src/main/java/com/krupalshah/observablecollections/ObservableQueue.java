@@ -1,5 +1,11 @@
 package com.krupalshah.observablecollections;
 
+import com.krupalshah.observablecollections.change.Change;
+import com.krupalshah.observablecollections.change.Insertion;
+import com.krupalshah.observablecollections.change.Removal;
+
+import java.util.Collection;
+import java.util.Collections;
 import java.util.NoSuchElementException;
 import java.util.Queue;
 
@@ -12,17 +18,18 @@ import io.reactivex.subjects.Subject;
 
 public class ObservableQueue<E> extends ObservableCollection<E> implements Queue<E> {
 
-    public ObservableQueue(@NonNull Queue<E> collection) {
+    protected ObservableQueue(@NonNull Queue<E> collection) {
         super(collection);
     }
 
-    public ObservableQueue(@NonNull Queue<E> collection, @NonNull Subject<Change> subject) {
+    protected ObservableQueue(@NonNull Queue<E> collection, @NonNull Subject<Change> subject) {
         super(collection, subject);
     }
 
     //region custom implementation
     @Override
     public boolean offer(E element) {
+        Collection<E> original = Collections.unmodifiableCollection(items());
         boolean changed;
         try {
             changed = items().offer(element);
@@ -31,16 +38,25 @@ public class ObservableQueue<E> extends ObservableCollection<E> implements Queue
             subject().onError(e);
         }
         if (changed) {
-            subject().onNext(new Change());
+            Collection<E> inserted = Collections.singleton(element);
+            Change<ObservableQueue<E>, Collection<E>> change = new Insertion<>(
+                    this, original, inserted
+            );
+            subject().onNext(change);
         }
         return changed;
     }
 
     @Override
     public E remove() {
+        Collection<E> original = Collections.unmodifiableCollection(items());
         try {
             E head = items().remove();
-            subject().onNext(new Change());
+            Collection<E> removed = Collections.singleton(head);
+            Change<ObservableQueue<E>, Collection<E>> change = new Removal<>(
+                    this, original, removed
+            );
+            subject().onNext(change);
             return head;
         } catch (NoSuchElementException e) {
             subject().onError(e);
@@ -50,9 +66,14 @@ public class ObservableQueue<E> extends ObservableCollection<E> implements Queue
 
     @Override
     public E poll() {
+        Collection<E> original = Collections.unmodifiableCollection(items());
         E head = items().poll();
         if (head != null) {
-            subject().onNext(new Change());
+            Collection<E> removed = Collections.singleton(head);
+            Change<ObservableQueue<E>, Collection<E>> change = new Removal<>(
+                    this, original, removed
+            );
+            subject().onNext(change);
         }
         return head;
     }

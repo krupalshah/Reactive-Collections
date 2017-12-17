@@ -1,5 +1,7 @@
 package com.krupalshah.observablecollections;
 
+import com.krupalshah.observablecollections.change.Change;
+
 import java.util.Set;
 
 import io.reactivex.annotations.NonNull;
@@ -11,11 +13,11 @@ import io.reactivex.subjects.Subject;
 
 public class ObservableSet<E> extends ObservableCollection<E> implements Set<E> {
 
-    public ObservableSet(@NonNull Set<E> collection) {
+    protected ObservableSet(@NonNull Set<E> collection) {
         super(collection);
     }
 
-    public ObservableSet(@NonNull Set<E> collection, @NonNull Subject<Change> subject) {
+    protected ObservableSet(@NonNull Set<E> collection, @NonNull Subject<Change> subject) {
         super(collection, subject);
     }
 
