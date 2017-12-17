@@ -1,7 +1,7 @@
 # Observable Collections
 A thin wrapper around Java Collections using **RxJava2** in which you can observe the insertions,removals and modifications.<br/>Inspired from observable collections in JavaFX and C#.<br/>
 
-###Features
+### Features
 
 * **Compatible with Java 1.7 & Android** 
 * Implements standard collection interfaces such as List, Set, Queue and Map.
@@ -11,7 +11,7 @@ A thin wrapper around Java Collections using **RxJava2** in which you can observ
 * Uses RxJava Subject behind the scenes.
 * Fully extensible - you can create your own data structure and specify custom subject.
 
-###Usage
+### Usage
 
 * Use [CollectionsFactory](https://github.com/krupalshah/ObservableCollections/blob/master/lib/src/main/java/com/krupalshah/observablecollections/CollectionsFactory.java) to wrap your collection with observable collection:
 
@@ -20,15 +20,15 @@ A thin wrapper around Java Collections using **RxJava2** in which you can observ
  ObservableList<Contact> contactObservableList = CollectionsFactory.observableList(mContacts); //pass in observable... method
 ```
 
-* Call `subject()` and subscribe where you want to receive the changes.
+* Call `subject()` and subscribe the subject where you want to observe the changes.
 
 ```java
 contactObservableList
-                .subject()
-                .subscribe(new Consumer<Change>() {
+                .subject() //get subject
+                .subscribe(new Consumer<Change>() { //you can apply schedulers if you want
                     @Override
                     public void accept(Change change) throws Exception {
-                        onChangeDetected(change);
+                        onChangeDetected(change); //all changes will be received here
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -38,4 +38,28 @@ contactObservableList
                 });
 ```
 
+* You can determine what kind of change was performed by checking type of `Change<Source,Result>`.
+`Insertion`, `Removal` and `Modification` all three extends `Change` and contains methods to get new/updated/removed items, their size and original collection.
+
+```java
+  private void onChangeDetected(Change<ObservableList<Contact>, Collection<Contact>> change) {
+        if (change instanceof Insertion) {
+            //items inserted (i.e add/addAll/put/putAll/offer etc. called depending on your collection)
+        } else if (change instanceof Modification) {
+            //items updated (i.e set etc. called)
+        } else if (change instanceof Removal) {
+            //items removed (i.e remove/removeAll/clear etc. called)
+        }
+```
+Please have a look `Change` and its subclasses [here](https://github.com/krupalshah/ObservableCollections/blob/master/lib/src/main/java/com/krupalshah/observablecollections/CollectionsFactory.java) to know more methods.
+
+* Internally, It uses [PublishSubject](http://reactivex.io/RxJava/javadoc/rx/subjects/PublishSubject.html) by default, but you can pass your custom subject in the second parameter of `observe...` methods:
+
+```java
+      BehaviorSubject<Change> behaviorSubject = BehaviorSubject.create();
+      ObservableMap<String,String> observableMap = CollectionsFactory.observableMap(new ArrayMap<String, String>(), behaviorSubject);
+```
+
+### Sample
+There is a sample Android app [here](https://github.com/krupalshah/ObservableCollections/tree/master/app) which only demonstrates `ObservableList` for now.<br/>`ChangeSourceFragment` changes the `ObservableList`, which is observed in `ChangeObserverFragment`.<br/>Also note that ObservableCollections is a Java library, not specific to only Android. So, it can be used with any Java/Android project.
 
