@@ -4,69 +4,111 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
+import io.reactivex.annotations.NonNull;
+import io.reactivex.subjects.Subject;
+
 /**
  * Created on 17-Dec-17.
  */
 
-public class ObservableMap<K, V> implements Map<K, V> {
+public class ObservableMap<K, V> extends BaseObservable<Change> implements Map<K, V> {
 
-    @Override
-    public int size() {
-        return 0;
+    private Map<K, V> mMap;
+
+    public ObservableMap(@NonNull Map<K, V> map) {
+        super();
+        mMap = map;
     }
 
-    @Override
-    public boolean isEmpty() {
-        return false;
+    public ObservableMap(@NonNull Map<K, V> map, @NonNull Subject<Change> subject) {
+        super(subject);
+        mMap = map;
     }
 
-    @Override
-    public boolean containsKey(Object key) {
-        return false;
-    }
-
-    @Override
-    public boolean containsValue(Object value) {
-        return false;
-    }
-
-    @Override
-    public V get(Object key) {
-        return null;
-    }
-
+    //region custom implementation
     @Override
     public V put(K key, V value) {
-        return null;
+        try {
+            V oldValue = mMap.put(key, value);
+            subject().onNext(new Change());
+            return oldValue;
+        } catch (UnsupportedOperationException | IllegalArgumentException | ClassCastException | NullPointerException e) {
+            subject().onError(e);
+            return null;
+        }
     }
 
     @Override
     public V remove(Object key) {
-        return null;
+        try {
+            V oldValue = mMap.remove(key);
+            subject().onNext(new Change());
+            return oldValue;
+        } catch (UnsupportedOperationException | ClassCastException | NullPointerException e) {
+            subject().onError(e);
+            return null;
+        }
     }
 
     @Override
-    public void putAll(Map<? extends K, ? extends V> m) {
-
+    public void putAll(Map<? extends K, ? extends V> map) {
+        try {
+            mMap.putAll(map);
+            subject().onNext(new Change());
+        } catch (UnsupportedOperationException | IllegalArgumentException | ClassCastException | NullPointerException e) {
+            subject().onError(e);
+        }
     }
 
     @Override
     public void clear() {
 
     }
+    //endregion
+
+    //region delegate only
+    @Override
+    public int size() {
+        return mMap.size();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return mMap.isEmpty();
+    }
+
+    @Override
+    public boolean containsKey(Object key) {
+        return mMap.containsKey(key);
+    }
+
+    @Override
+    public boolean containsValue(Object value) {
+        return mMap.containsValue(value);
+    }
+
+    @Override
+    public V get(Object key) {
+        return mMap.get(key);
+    }
 
     @Override
     public Set<K> keySet() {
-        return null;
+        return mMap.keySet();
     }
 
     @Override
     public Collection<V> values() {
-        return null;
+        return mMap.values();
     }
 
     @Override
     public Set<Entry<K, V>> entrySet() {
-        return null;
+        return mMap.entrySet();
     }
+
+    public Map<K, V> items() {
+        return mMap;
+    }
+    //endregion
 }

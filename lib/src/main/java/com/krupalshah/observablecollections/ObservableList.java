@@ -21,6 +21,7 @@ public class ObservableList<E>  extends ObservableCollection<E> implements List<
         super(collection, subject);
     }
 
+    //region custom implementation
     @Override
     public boolean addAll(int index, Collection<? extends E> collection) {
         boolean changed;
@@ -28,27 +29,22 @@ public class ObservableList<E>  extends ObservableCollection<E> implements List<
             changed = items().addAll(collection);
         } catch (UnsupportedOperationException | IllegalArgumentException | ClassCastException | NullPointerException e) {
             changed = false;
-            mSubject.onError(e);
+            subject().onError(e);
         }
         if (changed) {
-            mSubject.onNext(new Change());
+            subject().onNext(new Change());
         }
         return changed;
-    }
-
-    @Override
-    public E get(int index) {
-        return items().get(index);
     }
 
     @Override
     public E set(int index, E element) {
         try {
             E oldElement = items().set(index, element);
-            mSubject.onNext(new Change());
+            subject().onNext(new Change());
             return oldElement;
         } catch (UnsupportedOperationException | IllegalArgumentException | IndexOutOfBoundsException | ClassCastException | NullPointerException e) {
-            mSubject.onError(e);
+            subject().onError(e);
             return null;
         }
     }
@@ -60,10 +56,10 @@ public class ObservableList<E>  extends ObservableCollection<E> implements List<
             changed = items().add(element);
         } catch (UnsupportedOperationException | IllegalArgumentException | ClassCastException | NullPointerException e) {
             changed = false;
-            mSubject.onError(e);
+            subject().onError(e);
         }
         if (changed) {
-            mSubject.onNext(new Change());
+            subject().onNext(new Change());
         }
     }
 
@@ -71,12 +67,19 @@ public class ObservableList<E>  extends ObservableCollection<E> implements List<
     public E remove(int index) {
         try {
             E oldElement = items().remove(index);
-            mSubject.onNext(new Change());
+            subject().onNext(new Change());
             return oldElement;
         } catch (UnsupportedOperationException | IndexOutOfBoundsException e) {
-            mSubject.onError(e);
+            subject().onError(e);
             return null;
         }
+    }
+    //endregion
+
+    //region delegate only
+    @Override
+    public E get(int index) {
+        return items().get(index);
     }
 
     @Override
@@ -103,6 +106,7 @@ public class ObservableList<E>  extends ObservableCollection<E> implements List<
     public List<E> subList(int fromIndex, int toIndex) {
         return items().subList(fromIndex,toIndex);
     }
+    //endregion
 
     @Override
     public List<E> items() {
