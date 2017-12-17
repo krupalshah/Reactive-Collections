@@ -15,8 +15,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        addFragment(R.id.frame_top, EventSourceFragment.newInstance());
-        addFragment(R.id.frame_bottom, EventReceiverFragment.newInstance());
+        addFragment(R.id.frame_top, ChangeSourceFragment.newInstance());
+        addFragment(R.id.frame_bottom, ChangeObserverFragment.newInstance());
     }
 
     private void addFragment(int containedId, Fragment fragment) {

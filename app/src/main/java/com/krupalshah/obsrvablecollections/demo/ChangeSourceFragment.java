@@ -16,12 +16,12 @@ import java.util.UUID;
  * Created on 17-Dec-17.
  */
 
-public class EventSourceFragment extends Fragment implements View.OnClickListener {
+public class ChangeSourceFragment extends Fragment implements View.OnClickListener {
 
     private final ContactBook mContactBook = ContactBook.getInstance();
 
-    public static EventSourceFragment newInstance() {
-        EventSourceFragment fragment = new EventSourceFragment();
+    public static ChangeSourceFragment newInstance() {
+        ChangeSourceFragment fragment = new ChangeSourceFragment();
         return fragment;
     }
 

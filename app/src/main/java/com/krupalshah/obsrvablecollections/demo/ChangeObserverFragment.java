@@ -22,13 +22,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created on 17-Dec-17.
  */
 
-public class EventReceiverFragment extends Fragment {
+public class ChangeObserverFragment extends Fragment {
 
     private static final String TAG = "EventReceiverFragment";
     private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
@@ -36,8 +37,8 @@ public class EventReceiverFragment extends Fragment {
     private TextView mTxtEvent;
     private TextView mTxtSize;
 
-    public static EventReceiverFragment newInstance() {
-        EventReceiverFragment fragment = new EventReceiverFragment();
+    public static ChangeObserverFragment newInstance() {
+        ChangeObserverFragment fragment = new ChangeObserverFragment();
         return fragment;
     }
 
@@ -61,6 +62,20 @@ public class EventReceiverFragment extends Fragment {
 
     private void observeChanges() {
         ObservableList<Contact> contactObservableList = mContactBook.getContactObservableList();
+        contactObservableList
+                .subject()
+                .subscribe(new Consumer<Change>() {
+                    @Override
+                    public void accept(Change change) throws Exception {
+                        onChangeDetected(change);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        throwable.printStackTrace();
+                    }
+                });
+
         contactObservableList
                 .subject()
                 .subscribeOn(Schedulers.io())
