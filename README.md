@@ -47,11 +47,11 @@ contactObservableList
 ```java
   private void onChangeDetected(Change<ObservableList<Contact>, Collection<Contact>> change) {
         if (change instanceof Insertion) {
-            //items inserted (i.e add/addAll/put/putAll/offer etc. called depending on your collection)
+            //items inserted (i.e add/addAll/put/offer etc. called depending on your collection)
         } else if (change instanceof Modification) {
-            //items updated (i.e set etc. called)
+            //items updated (i.e set/put/putAll etc. called)
         } else if (change instanceof Removal) {
-            //items removed (i.e remove/removeAll/clear etc. called)
+            //items removed (i.e remove/removeAll/poll/clear etc. called)
         }
 ```
 Please have a look `Change` and its subclasses [here](https://github.com/krupalshah/ObservableCollections/blob/master/lib/src/main/java/com/krupalshah/observablecollections/CollectionsFactory.java) to know more methods.
