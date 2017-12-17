@@ -22,7 +22,6 @@ public class ObservableCollection<E> implements Collection<E> {
         mSubject = subject;
     }
 
-
     @Override
     public int size() {
         return mCollection.size();
@@ -34,8 +33,8 @@ public class ObservableCollection<E> implements Collection<E> {
     }
 
     @Override
-    public boolean contains(Object o) {
-        return mCollection.contains(o);
+    public boolean contains(Object object) {
+        return mCollection.contains(object);
     }
 
     @Override
@@ -49,8 +48,8 @@ public class ObservableCollection<E> implements Collection<E> {
     }
 
     @Override
-    public <T> T[] toArray(T[] a) {
-        return mCollection.toArray(a);
+    public <T> T[] toArray(T[] array) {
+        return mCollection.toArray(array);
     }
 
     @Override
@@ -69,10 +68,10 @@ public class ObservableCollection<E> implements Collection<E> {
     }
 
     @Override
-    public boolean remove(Object o) {
+    public boolean remove(Object object) {
         boolean removed;
         try {
-            removed = mCollection.remove(o);
+            removed = mCollection.remove(object);
         } catch (UnsupportedOperationException | ClassCastException | NullPointerException e) {
             removed = false;
             mSubject.onError(e);
@@ -84,15 +83,15 @@ public class ObservableCollection<E> implements Collection<E> {
     }
 
     @Override
-    public boolean containsAll(Collection<?> c) {
-        return mCollection.containsAll(c);
+    public boolean containsAll(Collection<?> collection) {
+        return mCollection.containsAll(collection);
     }
 
     @Override
-    public boolean addAll(Collection<? extends E> c) {
+    public boolean addAll(Collection<? extends E> collection) {
         boolean changed;
         try {
-            changed = mCollection.addAll(c);
+            changed = mCollection.addAll(collection);
         } catch (UnsupportedOperationException | IllegalArgumentException | IllegalStateException | ClassCastException | NullPointerException e) {
             changed = false;
             mSubject.onError(e);
@@ -104,10 +103,10 @@ public class ObservableCollection<E> implements Collection<E> {
     }
 
     @Override
-    public boolean removeAll(Collection<?> c) {
+    public boolean removeAll(Collection<?> collection) {
         boolean changed;
         try {
-            changed = mCollection.removeAll(c);
+            changed = mCollection.removeAll(collection);
         } catch (UnsupportedOperationException | ClassCastException | NullPointerException e) {
             changed = false;
             mSubject.onError(e);
@@ -119,10 +118,10 @@ public class ObservableCollection<E> implements Collection<E> {
     }
 
     @Override
-    public boolean retainAll(Collection<?> c) {
+    public boolean retainAll(Collection<?> collection) {
         boolean changed;
         try {
-            changed = mCollection.retainAll(c);
+            changed = mCollection.retainAll(collection);
         } catch (UnsupportedOperationException | ClassCastException | NullPointerException e) {
             changed = false;
             mSubject.onError(e);

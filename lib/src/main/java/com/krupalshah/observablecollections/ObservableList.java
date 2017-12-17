@@ -22,10 +22,10 @@ public class ObservableList<E> extends ObservableCollection<E> implements List<E
     }
 
     @Override
-    public boolean addAll(int index, Collection<? extends E> c) {
+    public boolean addAll(int index, Collection<? extends E> collection) {
         boolean changed;
         try {
-            changed = items().addAll(c);
+            changed = items().addAll(collection);
         } catch (UnsupportedOperationException | IllegalArgumentException | ClassCastException | NullPointerException e) {
             changed = false;
             mSubject.onError(e);
@@ -80,13 +80,13 @@ public class ObservableList<E> extends ObservableCollection<E> implements List<E
     }
 
     @Override
-    public int indexOf(Object o) {
-        return items().indexOf(o);
+    public int indexOf(Object object) {
+        return items().indexOf(object);
     }
 
     @Override
-    public int lastIndexOf(Object o) {
-        return items().lastIndexOf(o);
+    public int lastIndexOf(Object object) {
+        return items().lastIndexOf(object);
     }
 
     @Override
