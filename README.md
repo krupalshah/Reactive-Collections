@@ -4,9 +4,18 @@ A thin wrapper around Java Collections using <b>RxJava2</b> in which you can obs
 <h3>Features</h3>
 <ul>
 <li><b>Compatible with Java 1.7 & Android</b></li>
-<li>All standard collections such as List, Set, Queue and Map.</li>
+<li>Implements standard collection interfaces such as List, Set, Queue and Map.</li>
 <li>Support for observing insertions, modifications and removals.</li>
 <li>All errors are handled. i.e No runtime crashes.</li>
 <li>Minimal overhead with method count around hundread.</li>
 <li>Uses RxJava Subject behind the scenes.</li>
+<li>Fully extensible - you can create your own data structure and specify custom subject.</li>
 </ul>
+
+<h3>Usage</h3>
+<ul>
+<li>Use `CollectionsFactory` to wrap your collection with observable collection:</li>
+`List<Contact> mContacts = new ArrayList<>(); //your array list
+ ObservableList<Contact> contactObservableList = CollectionsFactory.observableList(mContacts); //pass in observable... method`
+
+
