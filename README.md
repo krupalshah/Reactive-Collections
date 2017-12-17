@@ -14,7 +14,7 @@ A thin wrapper around Java Collections using <b>RxJava2</b> in which you can obs
 
 <h3>Usage</h3>
 <ul>
-<li>Use [CollectionsFactory](https://github.com/krupalshah/ObservableCollections/blob/master/lib/src/main/java/com/krupalshah/observablecollections/CollectionsFactory.java) to wrap your collection with observable collection:</li>
+<li>Use [CollectionsFactory](https://goo.gl/Lw1cYL) to wrap your collection with observable collection:</li>
 
 ```java
  List<Contact> mContacts = new ArrayList<>(); //your array list
