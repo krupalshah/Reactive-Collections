@@ -15,9 +15,28 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+ext {
+    //region sdk and versioning
+    compileSdkVersion = 26
+    buildToolsVersion = "26.0.2"
+    minSdkVersion = 21
+    targetSdkVersion = 26
+    versionCode = 1
+    versionName = "1.0"
+    //endregion
+
+    //region libraries
+    rxjava = '2.1.7'
+    appcompat = '26.0.0'
+    junit = '4.12'
+    //endregion
 }
