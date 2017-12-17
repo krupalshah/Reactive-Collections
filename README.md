@@ -11,6 +11,9 @@ A thin wrapper around Java Collections using **RxJava2** in which you can observ
 * Uses RxJava Subject behind the scenes.
 * Fully extensible - you can create your own data structure and specify custom subject.
 
+### Download
+* 
+
 ### Usage
 
 * Use [CollectionsFactory](https://github.com/krupalshah/ObservableCollections/blob/master/lib/src/main/java/com/krupalshah/observablecollections/CollectionsFactory.java) to wrap your collection with observable collection:
@@ -64,7 +67,7 @@ Please have a look `Change` and its subclasses [here](https://github.com/krupals
 There is a sample Android app [here](https://github.com/krupalshah/ObservableCollections/tree/master/app) which only demonstrates `ObservableList` for now.<br/>`ChangeSourceFragment` changes the `ObservableList`, which is observed in `ChangeObserverFragment`.<br/>Also note that ObservableCollections is a Java library, not specific to only Android. So, it can be used with any Java/Android project.
 
 
-###Licence
+### Licence
 ```
 Copyright 2017 Krupal Shah
 
