@@ -5,5 +5,5 @@ dependencies {
     compile "io.reactivex.rxjava2:rxjava:2.1.7"
 }
 
-sourceCompatibility = "1.6"
-targetCompatibility = "1.6"
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"

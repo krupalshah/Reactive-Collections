@@ -25,74 +25,129 @@ public class ObservableCollection<E> implements Collection<E> {
 
     @Override
     public int size() {
-        return 0;
+        return mCollection.size();
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return mCollection.isEmpty();
     }
 
     @Override
     public boolean contains(Object o) {
-        return false;
+        return mCollection.contains(o);
     }
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return mCollection.iterator();
     }
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        return mCollection.toArray();
     }
 
     @Override
     public <T> T[] toArray(T[] a) {
-        return null;
+        return mCollection.toArray(a);
     }
 
     @Override
-    public boolean add(E e) {
-        return false;
+    public boolean add(E element) {
+        boolean changed;
+        try {
+            changed = mCollection.add(element);
+        } catch (UnsupportedOperationException | IllegalArgumentException | IllegalStateException | ClassCastException | NullPointerException e) {
+            changed = false;
+            mSubject.onError(e);
+        }
+        if (changed) {
+            mSubject.onNext(new Change());
+        }
+        return changed;
     }
 
     @Override
     public boolean remove(Object o) {
-        return false;
+        boolean removed;
+        try {
+            removed = mCollection.remove(o);
+        } catch (UnsupportedOperationException | ClassCastException | NullPointerException e) {
+            removed = false;
+            mSubject.onError(e);
+        }
+        if (removed) {
+            mSubject.onNext(new Change());
+        }
+        return removed;
     }
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        return false;
+        return mCollection.containsAll(c);
     }
 
     @Override
     public boolean addAll(Collection<? extends E> c) {
-        return false;
+        boolean changed;
+        try {
+            changed = mCollection.addAll(c);
+        } catch (UnsupportedOperationException | IllegalArgumentException | IllegalStateException | ClassCastException | NullPointerException e) {
+            changed = false;
+            mSubject.onError(e);
+        }
+        if (changed) {
+            mSubject.onNext(new Change());
+        }
+        return changed;
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        boolean changed;
+        try {
+            changed = mCollection.removeAll(c);
+        } catch (UnsupportedOperationException | ClassCastException | NullPointerException e) {
+            changed = false;
+            mSubject.onError(e);
+        }
+        if (changed) {
+            mSubject.onNext(new Change());
+        }
+        return changed;
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        return false;
+        boolean changed;
+        try {
+            changed = mCollection.retainAll(c);
+        } catch (UnsupportedOperationException | ClassCastException | NullPointerException e) {
+            changed = false;
+            mSubject.onError(e);
+        }
+        if (changed) {
+            mSubject.onNext(new Change());
+        }
+        return changed;
     }
 
     @Override
     public void clear() {
-
+        try {
+            mCollection.clear();
+            mSubject.onNext(new Change());
+        } catch (UnsupportedOperationException e) {
+            mSubject.onError(e);
+        }
     }
 
-    public Collection<E> items(){
+    public Collection<E> items() {
         return mCollection;
     }
 
-    public Subject<Change> observe(){
+    public Subject<Change> observe() {
         return mSubject;
     }
 }

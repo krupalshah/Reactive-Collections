@@ -23,11 +23,17 @@ public class ObservableList<E> extends ObservableCollection<E> implements List<E
 
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
-        boolean added = mCollection.addAll(c);
-        if (added) {
+        boolean changed;
+        try {
+            changed = items().addAll(c);
+        } catch (UnsupportedOperationException | IllegalArgumentException | ClassCastException | NullPointerException e) {
+            changed = false;
+            mSubject.onError(e);
+        }
+        if (changed) {
             mSubject.onNext(new Change());
         }
-        return added;
+        return changed;
     }
 
     @Override
@@ -37,42 +43,65 @@ public class ObservableList<E> extends ObservableCollection<E> implements List<E
 
     @Override
     public E set(int index, E element) {
-        return null;
+        try {
+            E oldElement = items().set(index, element);
+            mSubject.onNext(new Change());
+            return oldElement;
+        } catch (UnsupportedOperationException | IllegalArgumentException | IndexOutOfBoundsException | ClassCastException | NullPointerException e) {
+            mSubject.onError(e);
+            return null;
+        }
     }
 
     @Override
     public void add(int index, E element) {
-
+        boolean changed;
+        try {
+            changed = items().add(element);
+        } catch (UnsupportedOperationException | IllegalArgumentException | ClassCastException | NullPointerException e) {
+            changed = false;
+            mSubject.onError(e);
+        }
+        if (changed) {
+            mSubject.onNext(new Change());
+        }
     }
 
     @Override
     public E remove(int index) {
-        return null;
+        try {
+            E oldElement = items().remove(index);
+            mSubject.onNext(new Change());
+            return oldElement;
+        } catch (UnsupportedOperationException | IndexOutOfBoundsException e) {
+            mSubject.onError(e);
+            return null;
+        }
     }
 
     @Override
     public int indexOf(Object o) {
-        return 0;
+        return items().indexOf(o);
     }
 
     @Override
     public int lastIndexOf(Object o) {
-        return 0;
+        return items().lastIndexOf(o);
     }
 
     @Override
     public ListIterator<E> listIterator() {
-        return null;
+        return items().listIterator();
     }
 
     @Override
     public ListIterator<E> listIterator(int index) {
-        return null;
+        return items().listIterator(index);
     }
 
     @Override
     public List<E> subList(int fromIndex, int toIndex) {
-        return null;
+        return items().subList(fromIndex,toIndex);
     }
 
     @Override
