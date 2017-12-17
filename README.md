@@ -17,7 +17,7 @@ A thin wrapper around Java Collections using **RxJava2** in which you can observ
 * Gradle
 ```
 dependencies {
-  compile'com.krupalshah:observablecollections:1.0.1'
+  compile 'com.krupalshah:observablecollections:1.0.1'
 }
 ```
 
