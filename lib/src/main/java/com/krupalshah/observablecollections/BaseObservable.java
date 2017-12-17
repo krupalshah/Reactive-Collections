@@ -26,4 +26,20 @@ public abstract class BaseObservable<T extends Change> {
     }
 
     public abstract Object items();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BaseObservable<?> that = (BaseObservable<?>) o;
+
+        return mSubject.equals(that.mSubject);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return mSubject.hashCode();
+    }
 }

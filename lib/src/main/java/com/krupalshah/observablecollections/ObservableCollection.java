@@ -185,4 +185,23 @@ public class ObservableCollection<E> extends BaseObservable<Change> implements C
         return mCollection;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        ObservableCollection<?> that = (ObservableCollection<?>) o;
+
+        return mCollection.equals(that.mCollection);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + mCollection.hashCode();
+        return result;
+    }
 }
