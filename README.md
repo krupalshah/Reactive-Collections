@@ -12,7 +12,22 @@ A thin wrapper around Java Collections using **RxJava2** in which you can observ
 * Fully extensible - you can create your own data structure and specify custom subject.
 
 ### Download
-* 
+* Gradle
+```
+dependencies {
+  compile'com.krupalshah:observablecollections:1.0.1'
+}
+```
+
+* Maven
+```
+<dependency>
+  <groupId>com.krupalshah</groupId>
+  <artifactId>observablecollections</artifactId>
+  <version>1.0.1</version>
+  <type>pom</type>
+</dependency>
+```
 
 ### Usage
 
