@@ -11,7 +11,7 @@ import io.reactivex.subjects.Subject;
  * Created on 16-Dec-17.
  */
 
-public class ObservableList<E> extends ObservableCollection<E> implements List<E> {
+public class ObservableList<E>  extends ObservableCollection<E> implements List<E> {
 
     public ObservableList(@NonNull List<E> collection) {
         super(collection);
