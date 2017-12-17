@@ -23,11 +23,19 @@ public class ContactBook {
         mContactObservableList = CollectionsFactory.observableList(mContacts);
     }
 
+    public ObservableList<Contact> getContactObservableList() {
+        return mContactObservableList;
+    }
+
     public void addContact(Contact contact){
         mContactObservableList.add(contact);
     }
 
     public void removeContact(Contact contact){
         mContactObservableList.remove(contact);
+    }
+
+    public void updateContact(Contact oldContact, Contact newContact) {
+        mContactObservableList.set(mContactObservableList.indexOf(oldContact),newContact);
     }
 }

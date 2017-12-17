@@ -18,7 +18,7 @@ public abstract class Change<T extends BaseObservable, S> {
         mOriginalItems = originalItems;
     }
 
-    T getAssociatedCollection(){
+    public T getAssociatedCollection(){
         return mObservableCollection;
     }
 
@@ -36,4 +36,10 @@ public abstract class Change<T extends BaseObservable, S> {
         return -1;
     }
 
+    @Override
+    public String toString() {
+        return "Change{" +
+                "mOriginalItems=" + mOriginalItems +
+                '}';
+    }
 }

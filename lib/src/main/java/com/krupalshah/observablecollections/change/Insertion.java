@@ -31,4 +31,11 @@ public class Insertion<T extends BaseObservable, S> extends Change<T,S> {
         }
         return -1;
     }
+
+    @Override
+    public String toString() {
+        return "Insertion{" +
+                "mInsertedItems=" + mInsertedItems +
+                "} " + super.toString();
+    }
 }

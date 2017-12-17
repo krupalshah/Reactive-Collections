@@ -139,5 +139,8 @@ public class ObservableList<E> extends ObservableCollection<E> implements List<E
         return (List<E>) super.items();
     }
 
-
+    @Override
+    public String toString() {
+        return items().toString();
+    }
 }

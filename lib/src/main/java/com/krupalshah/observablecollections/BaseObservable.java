@@ -35,7 +35,6 @@ public abstract class BaseObservable<T extends Change> {
         BaseObservable<?> that = (BaseObservable<?>) o;
 
         return mSubject.equals(that.mSubject);
-
     }
 
     @Override

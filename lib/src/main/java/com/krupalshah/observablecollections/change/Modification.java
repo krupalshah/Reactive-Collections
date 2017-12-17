@@ -31,4 +31,11 @@ public class Modification<T extends BaseObservable, S> extends Change<T, S> {
         }
         return -1;
     }
+
+    @Override
+    public String toString() {
+        return "Modification{" +
+                "mModifiedItems=" + mModifiedItems +
+                "} " + super.toString();
+    }
 }

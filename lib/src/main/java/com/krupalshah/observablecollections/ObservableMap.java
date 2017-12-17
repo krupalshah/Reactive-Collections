@@ -143,6 +143,10 @@ public class ObservableMap<K, V> extends BaseObservable<Change> implements Map<K
     }
     //endregion
 
+    @Override
+    public String toString() {
+        return items().toString();
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -153,7 +157,6 @@ public class ObservableMap<K, V> extends BaseObservable<Change> implements Map<K
         ObservableMap<?, ?> that = (ObservableMap<?, ?>) o;
 
         return mMap.equals(that.mMap);
-
     }
 
     @Override

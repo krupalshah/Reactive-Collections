@@ -35,4 +35,11 @@ public class Removal<T extends BaseObservable, S> extends Change<T, S> {
     public boolean wasCleared() {
         return sizeOfOriginalItems() == sizeOfRemovedItems();
     }
+
+    @Override
+    public String toString() {
+        return "Removal{" +
+                "mRemovedItems=" + mRemovedItems +
+                "} " + super.toString();
+    }
 }

@@ -25,4 +25,9 @@ public class ObservableSet<E> extends ObservableCollection<E> implements Set<E> 
     public Set<E> items() {
         return (Set<E>) super.items();
     }
+
+    @Override
+    public String toString() {
+        return items().toString();
+    }
 }

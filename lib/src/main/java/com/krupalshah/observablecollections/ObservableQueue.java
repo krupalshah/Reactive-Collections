@@ -89,10 +89,16 @@ public class ObservableQueue<E> extends ObservableCollection<E> implements Queue
     public E peek() {
         return items().peek();
     }
+    //endregion
+
 
     @Override
     public Queue<E> items() {
         return (Queue<E>) super.items();
     }
-    //endregion
+
+    @Override
+    public String toString() {
+        return items().toString();
+    }
 }
