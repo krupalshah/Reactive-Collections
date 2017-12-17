@@ -53,6 +53,7 @@ contactObservableList
         } else if (change instanceof Removal) {
             //items removed (i.e remove/removeAll/poll/clear etc. called)
         }
+   }
 ```
 Please have a look `Change` and its subclasses [here](https://github.com/krupalshah/ObservableCollections/blob/master/lib/src/main/java/com/krupalshah/observablecollections/CollectionsFactory.java) to know more methods.
 
