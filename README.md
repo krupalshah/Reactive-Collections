@@ -16,7 +16,7 @@ A thin wrapper around Java Collections using **RxJava2** in which you can observ
 * Use [CollectionsFactory](https://github.com/krupalshah/ObservableCollections/blob/master/lib/src/main/java/com/krupalshah/observablecollections/CollectionsFactory.java) to wrap your collection with observable collection:
 
 ```java
- List<Contact> mContacts = new ArrayList<>(); //your array list
+ List<Contact> mContacts = new ArrayList<>(); //your collection
  ObservableList<Contact> contactObservableList = CollectionsFactory.observableList(mContacts); //pass in observable... method
 ```
 
@@ -39,7 +39,7 @@ contactObservableList
 ```
 
 * You can determine what kind of change was performed by checking type of `Change<Source,Result>`.
-`Insertion`, `Removal` and `Modification` all three extends `Change` and contains methods to get new/updated/removed items, their size and original collection.
+`Insertion`, `Removal` and `Modification` all three extends `Change` and contains methods to get new/updated/removed items, their size and original collection before changes.
 
 ```java
   private void onChangeDetected(Change<ObservableList<Contact>, Collection<Contact>> change) {
@@ -63,3 +63,20 @@ Please have a look `Change` and its subclasses [here](https://github.com/krupals
 ### Sample
 There is a sample Android app [here](https://github.com/krupalshah/ObservableCollections/tree/master/app) which only demonstrates `ObservableList` for now.<br/>`ChangeSourceFragment` changes the `ObservableList`, which is observed in `ChangeObserverFragment`.<br/>Also note that ObservableCollections is a Java library, not specific to only Android. So, it can be used with any Java/Android project.
 
+
+###Licence
+```
+Copyright 2017 Krupal Shah
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
