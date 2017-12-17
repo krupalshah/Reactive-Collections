@@ -17,7 +17,9 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        mavenCentral()
+        maven {
+            url 'https://dl.bintray.com/krupalshah55/ObservableCollections'
+        }
         maven {
             url "https://maven.google.com"
         }
