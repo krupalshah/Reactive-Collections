@@ -5,11 +5,11 @@ A thin wrapper around Java Collections using **RxJava2** in which you can observ
 
 ### Features
 
-* **Compatible with Java 1.7 & Android** 
+* Compatible with Java 1.7+ and Android.
 * Implements standard collection interfaces such as List, Set, Queue and Map.
 * Support for observing insertions, modifications and removals.
 * All errors are handled. i.e No runtime crashes.
-* Minimal overhead with method count around hundread.
+* Minimal overhead with method count < 150.
 * Uses RxJava Subject behind the scenes.
 * Fully extensible - you can create your own data structure and specify custom subject.
 
@@ -17,7 +17,7 @@ A thin wrapper around Java Collections using **RxJava2** in which you can observ
 * Gradle
 ```
 dependencies {
-  compile 'com.krupalshah:observablecollections:1.0.4'
+    compile 'com.krupalshah:observablecollections:1.0.5'
 }
 ```
 
@@ -26,7 +26,7 @@ dependencies {
 <dependency>
   <groupId>com.krupalshah</groupId>
   <artifactId>observablecollections</artifactId>
-  <version>1.0.4</version>
+  <version>1.0.5</version>
   <type>pom</type>
 </dependency>
 ```
