@@ -44,6 +44,6 @@ ext {
     rxandroid = '2.0.1'
     appcompat = '26.0.0'
     junit = '4.12'
-    libVersion = '1.0.1'
+    libVersion = '1.0.4'
     //endregion
 }

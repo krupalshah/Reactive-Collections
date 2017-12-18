@@ -9,16 +9,16 @@ import java.util.Map;
  * Created on 17-Dec-17.
  */
 
-public class Modification<T extends BaseObservable, S> extends Change<T, S> {
+public class Modification<Source extends BaseObservable, Result> extends Change<Source, Result> {
 
-    private final S mModifiedItems;
+    private final Result mModifiedItems;
 
-    public Modification(T collection, S originalItems, S modifiedItems) {
+    public Modification(Source collection, Result originalItems, Result modifiedItems) {
         super(collection, originalItems);
         mModifiedItems = modifiedItems;
     }
 
-    public S getModifiedItems() {
+    public Result getModifiedItems() {
         return mModifiedItems;
     }
 

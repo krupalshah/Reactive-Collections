@@ -4,17 +4,17 @@ apply plugin: 'com.jfrog.bintray'
 def artifact = new Properties()
 artifact.load(new FileInputStream("deploy.settings"))
 
-version=artifact.version
-group=artifact.groupId
+version = artifact.version
+group = artifact.groupId
 
 install {
     repositories.mavenInstaller {
-    pom.project {
+        pom.project {
             packaging 'aar'
             groupId artifact.groupId
             artifactId artifact.id
             version artifact.version
-            name artifact.id // pom.project.name must be same as bintray.pkg.name
+            name artifact.name // pom.project.name must be same as bintray.pkg.name
             url artifact.siteUrl
             inceptionYear '2017' // HARDCODED
             licenses {
@@ -25,9 +25,9 @@ install {
                 }
             }
             scm {
-                    connection artifact.gitUrl
-                    developerConnection artifact.gitUrl
-                    url artifact.siteUrl
+                connection artifact.gitUrl
+                developerConnection artifact.gitUrl
+                url artifact.siteUrl
             }
         }
     }
@@ -44,7 +44,7 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = "ObservableCollections"
-        name = artifact.id
+        name = artifact.name
         websiteUrl = artifact.siteUrl
         vcsUrl = artifact.gitUrl
         licenses = artifact.licenses
@@ -57,11 +57,13 @@ bintray {
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
+    baseName artifact.name
     from sourceSets.main.allSource
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
+    baseName artifact.name
     from javadoc.destinationDir
 }
 

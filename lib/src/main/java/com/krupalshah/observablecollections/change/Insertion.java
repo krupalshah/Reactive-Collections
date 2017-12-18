@@ -9,16 +9,16 @@ import java.util.Map;
  * Created on 17-Dec-17.
  */
 
-public class Insertion<T extends BaseObservable, S> extends Change<T,S> {
+public class Insertion<Source extends BaseObservable, Result> extends Change<Source, Result> {
 
-    private final S mInsertedItems;
+    private final Result mInsertedItems;
 
-    public Insertion(T collection, S originalItems, S insertedItems) {
+    public Insertion(Source collection, Result originalItems, Result insertedItems) {
         super(collection, originalItems);
         mInsertedItems = insertedItems;
     }
 
-    public S getInsertedItems() {
+    public Result getInsertedItems() {
         return mInsertedItems;
     }
 
