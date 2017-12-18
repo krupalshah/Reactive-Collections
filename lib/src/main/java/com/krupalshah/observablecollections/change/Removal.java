@@ -9,16 +9,16 @@ import java.util.Map;
  * Created on 17-Dec-17.
  */
 
-public class Removal<T extends BaseObservable, S> extends Change<T, S> {
+public class Removal<Source extends BaseObservable, Result> extends Change<Source, Result> {
 
-    private final S mRemovedItems;
+    private final Result mRemovedItems;
 
-    public Removal(T collection, S originalItems, S removedItems) {
+    public Removal(Source collection, Result originalItems, Result removedItems) {
         super(collection, originalItems);
         mRemovedItems = removedItems;
     }
 
-    public S getRemovedItems() {
+    public Result getRemovedItems() {
         return mRemovedItems;
     }
 

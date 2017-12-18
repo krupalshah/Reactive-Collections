@@ -9,20 +9,20 @@ import java.util.Map;
  * Created on 16-Dec-17.
  */
 
-public abstract class Change<T extends BaseObservable, S> {
-    private final S mOriginalItems;
-    private final T mObservableCollection;
+public abstract class Change<Source extends BaseObservable, Result> {
+    private final Result mOriginalItems;
+    private final Source mObservableCollection;
 
-    protected Change(T observableCollection, S originalItems) {
+    protected Change(Source observableCollection, Result originalItems) {
         mObservableCollection = observableCollection;
         mOriginalItems = originalItems;
     }
 
-    public T getAssociatedCollection(){
+    public Source getAssociatedCollection(){
         return mObservableCollection;
     }
 
-    public S getOriginalItems() {
+    public Result getOriginalItems() {
         return mOriginalItems;
     }
 
