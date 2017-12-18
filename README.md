@@ -17,7 +17,7 @@ A thin wrapper around Java Collections using **RxJava2** in which you can observ
 * Gradle
 ```
 dependencies {
-  compile 'com.krupalshah:observablecollections:1.0.1'
+  compile 'com.krupalshah:observablecollections:1.0.4'
 }
 ```
 
@@ -26,7 +26,7 @@ dependencies {
 <dependency>
   <groupId>com.krupalshah</groupId>
   <artifactId>observablecollections</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.4</version>
   <type>pom</type>
 </dependency>
 ```
