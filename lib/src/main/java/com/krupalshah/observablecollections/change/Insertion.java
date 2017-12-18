@@ -7,6 +7,13 @@ import java.util.Map;
 
 /**
  * Created on 17-Dec-17.
+ * <p>
+ * Determines that items were added to origin collection.
+ * For collection - it will be received when add()/addALl()/offer() is called
+ * For map - it will be received when put()/putAll() is called. (Note that putAll() can trigger both : insertion and modification)
+ *
+ * @param <Source> source observable (for ex. ObservableList/ObservableMap etc.)
+ * @param <Result> collection of inserted items
  */
 
 public class Insertion<Source extends BaseObservable, Result> extends Change<Source, Result> {

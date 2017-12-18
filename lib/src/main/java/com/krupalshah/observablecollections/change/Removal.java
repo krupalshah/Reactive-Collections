@@ -7,6 +7,12 @@ import java.util.Map;
 
 /**
  * Created on 17-Dec-17.
+ * <p>
+ * Determines that items were removed from origin collection.
+ * It will be received when remove()/removeAll()/poll()/clear() is called
+ *
+ * @param <Source> source observable (for ex. ObservableList/ObservableMap etc.)
+ * @param <Result> collection of removed items
  */
 
 public class Removal<Source extends BaseObservable, Result> extends Change<Source, Result> {

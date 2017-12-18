@@ -7,17 +7,23 @@ import io.reactivex.subjects.Subject;
 
 /**
  * Created on 17-Dec-17.
+ * <p>
+ * Base class for all observable collections
+ * By default uses {@link PublishSubject} to trigger changes.
+ * But you can specify own subject in constructor.
+ *
+ * @param <T> type of change observed by collection. It will create {@link Subject} of that type.
  */
 
 public abstract class BaseObservable<T extends Change> {
 
     private Subject<T> mSubject;
 
-    protected BaseObservable(){
+    protected BaseObservable() {
         mSubject = PublishSubject.create();
     }
 
-    protected BaseObservable(Subject<T> subject){
+    protected BaseObservable(Subject<T> subject) {
         mSubject = subject;
     }
 

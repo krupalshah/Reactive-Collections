@@ -12,10 +12,13 @@ import io.reactivex.subjects.Subject;
 
 /**
  * Created on 17-Dec-17.
+ * <p>
+ * Factory class to get observable collection instance
  */
 
 public class CollectionsFactory {
 
+    //region collections
     public static <E> ObservableCollection<E> observableCollection(Collection<E> collection) {
         return new ObservableCollection<>(collection);
     }
@@ -47,7 +50,9 @@ public class CollectionsFactory {
     public static <E> ObservableQueue<E> observableQueue(Queue<E> queue, Subject<Change> subject) {
         return new ObservableQueue<>(queue, subject);
     }
+    //endregion
 
+    //region map
     public static <K, V> ObservableMap<K, V> observableMap(Map<K, V> map) {
         return new ObservableMap<>(map);
     }
@@ -55,4 +60,5 @@ public class CollectionsFactory {
     public static <K, V> ObservableMap<K, V> observableMap(Map<K, V> map, Subject<Change> subject) {
         return new ObservableMap<>(map, subject);
     }
+    //endregion
 }

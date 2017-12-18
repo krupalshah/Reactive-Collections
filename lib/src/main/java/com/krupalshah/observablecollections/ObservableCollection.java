@@ -12,6 +12,12 @@ import java.util.LinkedHashSet;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.subjects.Subject;
 
+/**
+ * Base class for ObservableList,ObservableSet and ObservableQueue.
+ * Implements {@link Collection}.
+ *
+ * @param <E> type of element in collection
+ */
 public class ObservableCollection<E> extends BaseObservable<Change> implements Collection<E> {
 
     private Collection<E> mCollection;

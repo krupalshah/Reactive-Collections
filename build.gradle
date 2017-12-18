@@ -18,9 +18,6 @@ allprojects {
     repositories {
         jcenter()
         maven {
-            url 'https://dl.bintray.com/krupalshah55/ObservableCollections'
-        }
-        maven {
             url "https://maven.google.com"
         }
     }
@@ -44,6 +41,6 @@ ext {
     rxandroid = '2.0.1'
     appcompat = '26.0.0'
     junit = '4.12'
-    libVersion = '1.0.4'
+    libVersion = '1.0.5'
     //endregion
 }

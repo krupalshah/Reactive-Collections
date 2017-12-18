@@ -7,6 +7,11 @@ import java.util.Map;
 
 /**
  * Created on 16-Dec-17.
+ * <p>
+ * base class of all type of Changes
+ *
+ * @param <Source> source observable (for ex. ObservableList/ObservableMap etc.)
+ * @param <Result> collection of changed items
  */
 
 public abstract class Change<Source extends BaseObservable, Result> {
@@ -18,7 +23,7 @@ public abstract class Change<Source extends BaseObservable, Result> {
         mOriginalItems = originalItems;
     }
 
-    public Source getAssociatedCollection(){
+    public Source getAssociatedCollection() {
         return mObservableCollection;
     }
 

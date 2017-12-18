@@ -7,6 +7,7 @@ import com.krupalshah.observablecollections.change.Removal;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -52,6 +53,7 @@ public class ObservableMap<K, V> extends BaseObservable<Change> implements Map<K
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public V remove(Object key) {
         Map<K, V> original = Collections.unmodifiableMap(items());
@@ -74,9 +76,23 @@ public class ObservableMap<K, V> extends BaseObservable<Change> implements Map<K
         Map<K, V> original = Collections.unmodifiableMap(items());
         try {
             mMap.putAll(map);
-            Map<K, V> addedOrUpdated = Collections.unmodifiableMap(items());
-            Change<ObservableMap<K, V>, Map<K, V>> change = new Modification<>(this, original, addedOrUpdated);
-            subject().onNext(change);
+            Map<K, V> added = new LinkedHashMap<>();
+            Map<K, V> modified = new LinkedHashMap<>();
+            for (K k : map.keySet()) {
+                if (!original.containsKey(k)) {
+                    added.put(k, map.get(k));
+                } else {
+                    modified.put(k, map.get(k));
+                }
+            }
+            if (!added.isEmpty()) {
+                Change<ObservableMap<K, V>, Map<K, V>> change = new Insertion<>(this, original, Collections.unmodifiableMap(added));
+                subject().onNext(change);
+            }
+            if (!modified.isEmpty()) {
+                Change<ObservableMap<K, V>, Map<K, V>> change = new Modification<>(this, original, Collections.unmodifiableMap(modified));
+                subject().onNext(change);
+            }
         } catch (UnsupportedOperationException | IllegalArgumentException | ClassCastException | NullPointerException e) {
             subject().onError(e);
         }
@@ -84,10 +100,10 @@ public class ObservableMap<K, V> extends BaseObservable<Change> implements Map<K
 
     @Override
     public void clear() {
-        Map<K,V> original = Collections.unmodifiableMap(mMap);
+        Map<K, V> original = Collections.unmodifiableMap(mMap);
         try {
             mMap.clear();
-            Change<ObservableMap<K,V>, Map<K,V>> change = new Removal<>(
+            Change<ObservableMap<K, V>, Map<K, V>> change = new Removal<>(
                     this, original, original
             );
             subject().onNext(change);

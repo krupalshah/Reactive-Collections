@@ -1,6 +1,6 @@
 siteUrl = https://github.com/krupalshah/ObservableCollections
 gitUrl = git@github.com:krupalshah/ObservableCollections.git 
-version = 1.0.4
+version = 1.0.5
 groupId = com.krupalshah
 licenses = ['Apache-2.0']
 id = observablecollections
