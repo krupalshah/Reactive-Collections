@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:text="@string/add"/>
 
     <android.support.v7.widget.AppCompatButton
@@ -21,6 +23,8 @@
         android:id="@+id/btn_set"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:text="@string/set"/>
 
     <android.support.v7.widget.AppCompatButton
@@ -29,5 +33,7 @@
         android:id="@+id/btn_remove"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:text="@string/remove"/>
 </LinearLayout>
