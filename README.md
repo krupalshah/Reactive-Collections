@@ -1,5 +1,8 @@
 # Observable Collections
  [ ![Download](https://api.bintray.com/packages/krupalshah55/ObservableCollections/observablecollections/images/download.svg) ](https://bintray.com/krupalshah55/ObservableCollections/observablecollections/_latestVersion)
+<a href="http://www.methodscount.com/?lib=com.krupalshah%3Aobservablecollections%3A1.0.5"><img src="https://img.shields.io/badge/Methods count-core: 178 | deps: 10295-e91e63.svg"/></a>
+<a href="http://www.methodscount.com/?lib=com.krupalshah%3Aobservablecollections%3A1.0.5"><img src="https://img.shields.io/badge/Size-18 KB-e91e63.svg"/></a>
+
 
 A thin wrapper around Java Collections using **RxJava2** in which you can observe the insertions,removals and modifications.<br/>Inspired from observable collections in JavaFX and C#.<br/>
 
@@ -9,7 +12,7 @@ A thin wrapper around Java Collections using **RxJava2** in which you can observ
 * Implements standard collection interfaces such as List, Set, Queue and Map.
 * Support for observing insertions, modifications and removals.
 * All errors are handled. i.e No runtime crashes.
-* Minimal overhead with method count < 150.
+* Minimal overhead with method count < 200.
 * Uses RxJava Subject behind the scenes.
 * Fully extensible - you can create your own data structure and specify custom subject.
 
