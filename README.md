@@ -74,7 +74,7 @@ contactObservableList
         }
    }
 ```
-For more details, please have a look at `Change` and its subclasses [here](https://github.com/krupalshah/ObservableCollections/tree/master/lib/src/main/java/com/krupalshah/observablecollections/change) to know more methods.
+For more details, please have a look at `Change` and its subclasses [here](https://github.com/krupalshah/ObservableCollections/tree/master/lib/src/main/java/com/krupalshah/observablecollections/change).
 
 * Internally, It uses [PublishSubject](http://reactivex.io/RxJava/javadoc/rx/subjects/PublishSubject.html) by default, but you can pass your custom subject in the second parameter of `observe...` methods:
 
