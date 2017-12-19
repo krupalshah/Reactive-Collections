@@ -36,14 +36,14 @@ dependencies {
 
 ### Usage
 
-* Use [CollectionsFactory](https://github.com/krupalshah/ObservableCollections/blob/master/lib/src/main/java/com/krupalshah/observablecollections/CollectionsFactory.java) to wrap your collection with observable collection:
+1. Use [CollectionsFactory](https://github.com/krupalshah/ObservableCollections/blob/master/lib/src/main/java/com/krupalshah/observablecollections/CollectionsFactory.java) to wrap your collection with observable collection:
 
 ```java
  List<Contact> mContacts = new ArrayList<>(); //your collection
  ObservableList<Contact> contactObservableList = CollectionsFactory.observableList(mContacts); //pass in observable... method
 ```
 
-* Call `subject()` and subscribe the subject where you want to observe the changes.
+2. Call `subject()` and subscribe the subject where you want to observe the changes.
 
 ```java
 contactObservableList
@@ -61,7 +61,7 @@ contactObservableList
                 });
 ```
 
-* You can determine what kind of change was performed by checking type of `Change<Source,Result>`.<br/>
+3. You can determine what kind of change was performed by checking type of `Change<Source,Result>`.<br/>
 `Insertion`, `Removal` and `Modification` all three extends `Change` and contains methods to get new/updated/removed items, their size and original collection before changes.
 
 ```java
@@ -88,7 +88,7 @@ contactObservableList
 
 For more details, please have a look at `Change` and its subclasses [here](https://github.com/krupalshah/ObservableCollections/tree/master/lib/src/main/java/com/krupalshah/observablecollections/change).
 
-* Internally, It uses [PublishSubject](http://reactivex.io/RxJava/javadoc/rx/subjects/PublishSubject.html) by default, but you can pass your custom subject in the second parameter of `observe...` methods:
+4. Internally, It uses [PublishSubject](http://reactivex.io/RxJava/javadoc/rx/subjects/PublishSubject.html) by default, but you can pass your custom subject in the second parameter of `observe...` methods:
 
 ```java
       BehaviorSubject<Change> behaviorSubject = BehaviorSubject.create();
