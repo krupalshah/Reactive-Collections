@@ -75,6 +75,17 @@ contactObservableList
         }
    }
 ```
+<br/>You will get information about what exactly has been changed by calling following methods:
+* For all changes : 
+  * `getAssociatedCollection()` will return sorce observable collection for which changes are detected.
+  * `getOriginalItems()` will return original items before change.
+  * `sizeOfOriginalItems()` will return size of original items before change.
+* For `Insertion` : 
+  * `getInsertedItems()` will return `Collection` of added items. The collection may be immutable.
+  * `sizeOfInsertedItems()` will return size of added items.
+
+* For `Removal` and `Modification`, similar methods have been defined to get removed/updated items.
+
 For more details, please have a look at `Change` and its subclasses [here](https://github.com/krupalshah/ObservableCollections/tree/master/lib/src/main/java/com/krupalshah/observablecollections/change).
 
 * Internally, It uses [PublishSubject](http://reactivex.io/RxJava/javadoc/rx/subjects/PublishSubject.html) by default, but you can pass your custom subject in the second parameter of `observe...` methods:
