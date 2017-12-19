@@ -3,7 +3,7 @@
  [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/krupalshah/ObservableCollections/blob/master/LICENSE)
 <a href="http://www.methodscount.com/?lib=com.krupalshah%3Aobservablecollections%3A1.0.5"><img src="https://img.shields.io/badge/Methods and size-core: 178 | deps: 10295 | 18 KB-e91e63.svg"/></a>
 
-A thin wrapper around Java Collections using **RxJava2** in which you can observe the insertions,removals and modifications.<br/>Inspired from observable collections in JavaFX observable properties in Swift.<br/>
+A thin wrapper around Java Collections using **RxJava2** in which you can observe the insertions,removals and modifications.<br/>Inspired from observable collections in JavaFX and observable properties in Swift.<br/>
 
 ### Features
 
