@@ -47,18 +47,18 @@ dependencies {
 
 ```java
 contactObservableList
-                .subject() //get subject
-                .subscribe(new Consumer<Change>() { //you can apply schedulers if you want
-                    @Override
-                    public void accept(Change change) throws Exception {
-                        onChangeDetected(change); //all changes will be received here
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        throwable.printStackTrace();
-                    }
-                });
+          .subject() //get subject
+          .subscribe(new Consumer<Change>() { //you can apply schedulers if you want
+              @Override
+              public void accept(Change change) throws Exception {
+                  onChangeDetected(change); //all changes will be received here
+              }
+          }, new Consumer<Throwable>() {
+              @Override
+              public void accept(Throwable throwable) throws Exception {
+                  throwable.printStackTrace();
+              }
+          });
 ```
 
 3. You can determine what kind of change was performed by checking type of `Change<Source,Result>`.<br/>
@@ -88,11 +88,10 @@ contactObservableList
 
 For more details, please have a look at `Change` and its subclasses [here](https://github.com/krupalshah/ObservableCollections/tree/master/lib/src/main/java/com/krupalshah/observablecollections/change).
 
-4. Internally, It uses [PublishSubject](http://reactivex.io/RxJava/javadoc/rx/subjects/PublishSubject.html) by default, but you can pass your custom subject in the second parameter of `observe...` methods:
-
+* Internally, the library uses [PublishSubject](http://reactivex.io/RxJava/javadoc/rx/subjects/PublishSubject.html) by default. But, you can pass your custom subject in the second parameter of `observe...` methods:
 ```java
-      BehaviorSubject<Change> behaviorSubject = BehaviorSubject.create();
-      ObservableMap<String,String> observableMap = CollectionsFactory.observableMap(new ArrayMap<String, String>(), behaviorSubject);
+  BehaviorSubject<Change> behaviorSubject = BehaviorSubject.create();
+  ObservableMap<String,String> observableMap = CollectionsFactory.observableMap(new ArrayMap<String, String>(), behaviorSubject);
 ```
 
 ### Sample
