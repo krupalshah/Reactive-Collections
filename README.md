@@ -66,7 +66,7 @@ contactObservableList
 `Insertion`, `Removal` and `Modification` all three extends `Change` and contains methods to get new/updated/removed items, their size and original collection before changes.
 
 ```java
-  private void onChangeDetected(Change<ObservableList<Contact> change, Collection<Contact>> collection) {
+   private void onChangeDetected(Change<ObservableList<Contact>, Collection<Contact>> change) {
         if (change instanceof Insertion) {
             //items inserted (i.e add/addAll/put/putAll/offer etc. called)
         } else if (change instanceof Modification) {
