@@ -14,7 +14,6 @@ A thin wrapper around Java Collections using **RxJava2** in which you can observ
 * Support for observing insertions, modifications and removals.
 * All errors are handled. i.e No runtime crashes.
 * Minimal overhead with method count < 200.
-* Uses RxJava Subject behind the scenes.
 * Fully extensible - ability to create your own data structure and specify custom subject.
 
 ### Download
