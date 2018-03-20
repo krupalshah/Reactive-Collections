@@ -1,9 +1,5 @@
 # Observable Collections
  [ ![Download](https://api.bintray.com/packages/krupalshah55/ObservableCollections/observablecollections/images/download.svg) ](https://bintray.com/krupalshah55/ObservableCollections/observablecollections/_latestVersion)
- [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/krupalshah/ObservableCollections/blob/master/LICENSE)
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Observable%20Collections-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6574)
-<a href="http://www.methodscount.com/?lib=com.krupalshah%3Aobservablecollections%3A1.0.5"><img src="https://img.shields.io/badge/Methods count-core: 178 | deps: 10295-e91e63.svg"/></a>
-<a href="http://www.methodscount.com/?lib=com.krupalshah%3Aobservablecollections%3A1.0.5"><img src="https://img.shields.io/badge/Size-18 KB-e91e63.svg"/></a>
 
 A thin wrapper around Java Collections using RxJava2 in which you can observe the insertions,removals and modifications.<br/>Inspired from observable collections in JavaFX and observable properties in Swift.<br/>
 
