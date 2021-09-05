@@ -1,7 +1,6 @@
 # Reactive Collections
- [ ![Download](https://api.bintray.com/packages/krupalshah55/ObservableCollections/observablecollections/images/download.svg) ](https://bintray.com/krupalshah55/ObservableCollections/observablecollections/_latestVersion)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
- [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Reactive%20Collections-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6574)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Reactive%20Collections-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6574)
 
 A thin wrapper around Java Collections using RxJava2 in which you can observe the insertions,removals and modifications.<br/>Inspired from observable collections in JavaFX and observable properties in Swift.<br/>
 
