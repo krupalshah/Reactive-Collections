@@ -1,4 +1,5 @@
 # Reactive Collections
+![Release](https://github.com/krupalshah/Reactive-Collections/actions/workflows/release.yml/badge.svg)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Reactive%20Collections-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6574)
 
