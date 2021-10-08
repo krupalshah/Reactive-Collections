@@ -22,14 +22,14 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew -a -b lib/build.gradle
+      run: ./gradlew :lib:build
     - uses: meeDamian/github-release@2.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: ${{ github.run_id }}
         name: v1.0.5
         gzip: false
-        files: build/libs/*.jar
+        files: build/libs/*.jar /lib/build/*.jar
         allow_override: true
     - name: Cleanup Gradle Cache
       # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
