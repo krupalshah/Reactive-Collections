@@ -14,7 +14,7 @@ A thin wrapper around Java Collections using RxJava2 in which you can observe th
 * Minimal overhead with method count < 200.
 * Fully extensible - ability to create your own data structure and specify custom subject.
 
-### Download
+### ~~Download~~ [NOTE: Since Bintray has stopped further support, please use jar directly from releases or add lib as a module!]
 * Gradle
 ```
 dependencies {
@@ -31,7 +31,6 @@ dependencies {
   <type>pom</type>
 </dependency>
 ```
-
 ### Usage
 
 1. Use [CollectionsFactory](https://github.com/krupalshah/ObservableCollections/blob/master/lib/src/main/java/com/krupalshah/observablecollections/CollectionsFactory.java) to wrap your collection with observable collection:
