@@ -15,7 +15,7 @@ A thin wrapper around Java Collections using RxJava2 in which you can observe th
 * Fully extensible - ability to create your own data structure and specify custom subject.
 
 ### ~~Download~~ 
-#### NOTE: Since Bintray has stopped further support, please use jar directly from releases or add lib as a module :-(
+#### NOTE: Since Bintray has stopped further support, please use jar directly from releases or add lib as a module. Please read [here](https://jfrog.com/blog/into-the-sunset-bintray-jcenter-gocenter-and-chartcenter/) for more details:-(
 * Gradle
 ```
 dependencies {
