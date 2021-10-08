@@ -22,11 +22,11 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew :lib:build
+      run: ./gradlew -a -b lib/build.gradle
     - uses: meeDamian/github-release@2.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: ${{ github.run_id }}
+        tag: 1.0.5
         name: v1.0.5
         gzip: false
         files: build/libs/*.jar
