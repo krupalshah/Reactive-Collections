@@ -23,6 +23,8 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew :lib:build
+    - name: Dir tree
+      run: ls -ltr
     - uses: meeDamian/github-release@2.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -30,8 +32,6 @@ jobs:
         name: v1.0.5
         gzip: false
         files: >
-          build/libs/*.jar
-          lib/build/*.jar
           lib/build/libs/*.jar
         allow_override: true
     - name: Cleanup Gradle Cache
