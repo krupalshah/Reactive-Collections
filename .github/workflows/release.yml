@@ -29,7 +29,10 @@ jobs:
         tag: ${{ github.run_id }}
         name: v1.0.5
         gzip: false
-        files: build/libs/*.jar lib/build/*.jar lib/build/libs/*.jar
+        files: >
+          build/libs/*.jar
+          lib/build/*.jar
+          lib/build/libs/*.jar
         allow_override: true
     - name: Cleanup Gradle Cache
       # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
